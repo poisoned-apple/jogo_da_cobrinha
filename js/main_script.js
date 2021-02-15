@@ -7,8 +7,19 @@ snake[0] = {
     y: 7 * box
 } 
 
+var score = 0;
+var hp = 3;
+const heart = '<i class="far fa-heart"></i>';
+const broken_heart = '<i class="fas fa-heart-broken"></i>';
+const dead = '<i class="fas fa-dizzy"></i>'
+
 let direction = "right";
 let food = {
+    x: Math.floor(Math.random() * 13 + 1) * box,
+    y: Math.floor(Math.random() * 13 + 1) * box
+}
+
+let life = {
     x: Math.floor(Math.random() * 13 + 1) * box,
     y: Math.floor(Math.random() * 13 + 1) * box
 }
@@ -33,6 +44,11 @@ function criarCobrinha(){
 function drawFood(){
     context.fillStyle = "red";
     context.fillRect(food.x, food.y, box, box)
+}
+
+function drawLife(){
+    context.fillStyle = "indigo";
+    context.fillRect(life.x, life.y, box, box)
 }
 
 function drawEnemy(){
@@ -78,11 +94,27 @@ function iniciarJogo() {
     if(direction == "up") snakeY -= box;
     if(direction == "down") snakeY += box;
 
+    if (score != 0 && score % 10 == 0) drawLife();
+
+    if ((life.x * box) == (snakeX * box) && (life.y * box) == (snakeY * box)) {
+        score++;
+        document.getElementById("score").innerHTML = ("score:" + '<span class="pnts">' + score + '</span>');
+        if (hp == 1) {
+            document.getElementById("hp").innerHTML = ("HP: " + heart + heart);
+            hp = 2;
+        } else if (hp == 2) {
+            document.getElementById("hp").innerHTML = ("HP: " + heart + heart + heart);
+            hp = 3;
+        }
+    }
+
     if ((food.x * box) != (snakeX * box) || (food.y * box) != (snakeY * box)) { 
         snake.pop(); 
     }else {
-    food.x = Math.floor(Math.random() * 13 + 1) * box,
-    food.y = Math.floor(Math.random() * 13 + 1) * box
+    food.x = Math.floor(Math.random() * 13 + 1) * box;
+    food.y = Math.floor(Math.random() * 13 + 1) * box;
+    score++;
+    document.getElementById("score").innerHTML = ("score:" + '<span class="pnts">' + score + '</span>');
     }
 
     if ((enemy.x * box) == (food.x * box) && (enemy.y * box) == (food.y * box)) { 
@@ -96,6 +128,20 @@ function iniciarJogo() {
         snake.pop();
     enemy.x = Math.floor(Math.random() * 13 + 1) * box,
     enemy.y = Math.floor(Math.random() * 13 + 1) * box
+            
+    if (hp == 3) {
+        document.getElementById("hp").innerHTML = ("HP: " + heart + heart);
+        hp = 2;
+    } else if (hp == 2) {
+        document.getElementById("hp").innerHTML = ("HP: " + broken_heart);
+        hp = 1;
+    } else if (hp == 1) {
+        hp = 0;
+        document.getElementById("hp").innerHTML = ("dead " + dead);
+        clearInterval(jogo);
+            alert("Fim de Jogo. Recarregue a página para jogar novamente.");
+    }
+
     }
 
     let newHead = {
@@ -103,6 +149,7 @@ function iniciarJogo() {
         y: snakeY
     }
     snake.unshift(newHead);
+
 }
 
 criarBG();

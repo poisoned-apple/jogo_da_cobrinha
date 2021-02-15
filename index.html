@@ -11,11 +11,15 @@
 <body>
     <div class="wrapper">
     <h1 class="strokeme">Snake Game</h1>
+    <div class="points">
+        <div class="score" id="score"><b>score: 000</b></div>
+        <div class="hp" id="hp"><b>hp: <i class="far fa-heart"></i> <i class="far fa-heart"></i> <i class="far fa-heart"></i></b></div>
+    </div>
     <canvas id="campo" width="392" height="392"></canvas>
     <div class="butoes">
         <button type="button" role="button" class="botao" onclick="start(this)">start</button>
         <button type="button" role="button" class="botao" onclick="pause(this)">pause</button>
-        <button type="button" role="button" class="botao" onclick="faster(this)">faster</button>
+        <button type="button" role="button" class="botao" id= "faster" onclick="faster(this)">faster</button>
         <button type="button" role="button" class="botao" onclick="reload()">reload</button>
     </div>
     <footer>
@@ -27,5 +31,8 @@
         </div>
     </footer>
     </div>
+
+    <script src="https://kit.fontawesome.com/801d298680.js" crossorigin="anonymous"></script>
+
 </body>
 </html>
