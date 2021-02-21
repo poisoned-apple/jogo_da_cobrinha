@@ -96,7 +96,7 @@ function iniciarJogo() {
 
     if (score != 0 && score % 10 == 0) drawLife();
 
-    if ((life.x * box) == (snakeX * box) && (life.y * box) == (snakeY * box)) {
+    if ((score != 0 && score % 10 == 0) && (life.x * box) == (snakeX * box) && (life.y * box) == (snakeY * box)) {
         score++;
         document.getElementById("score").innerHTML = ("score:" + '<span class="pnts">' + score + '</span>');
         if (hp == 1) {
