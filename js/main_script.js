@@ -72,7 +72,7 @@ function iniciarJogo() {
     for (let i = 1; i < snake.length; i++) {
         if(snake[0].x == snake[i].x && snake[0].y == snake[i].y) {
             clearInterval(jogo);
-            alert("Fim de Jogo. Recarregue a página para jogar novamente.");
+            alert("Game Over. Snako bit its own tail.");
         }
     }
 
@@ -110,7 +110,7 @@ function iniciarJogo() {
 
     if ((food.x * box) != (snakeX * box) || (food.y * box) != (snakeY * box)) { 
         snake.pop(); 
-    }else {
+    } else {
     food.x = Math.floor(Math.random() * 13 + 1) * box;
     food.y = Math.floor(Math.random() * 13 + 1) * box;
     score++;
@@ -139,7 +139,7 @@ function iniciarJogo() {
         hp = 0;
         document.getElementById("hp").innerHTML = ("dead " + dead);
         clearInterval(jogo);
-            alert("Fim de Jogo. Recarregue a página para jogar novamente.");
+            alert("Game Over. Snako is now a heartless worm.");
     }
 
     }
