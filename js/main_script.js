@@ -1,3 +1,5 @@
+var paused = false;
+var playing = false;
 let canvas = document.getElementById("campo");
 let context = canvas.getContext("2d");
 let box = 28;
@@ -43,20 +45,44 @@ function criarCobrinha(){
 
 function drawFood(){
     context.fillStyle = "red";
-    context.fillRect(food.x, food.y, box, box)
+    context.fillRect(food.x, food.y, box, box);
 }
 
 function drawLife(){
     context.fillStyle = "indigo";
-    context.fillRect(life.x, life.y, box, box)
+    context.fillRect(life.x, life.y, box, box);
 }
 
 function drawEnemy(){
     context.fillStyle = "black";
-    context.fillRect(enemy.x, enemy.y, box, box)
+    context.fillRect(enemy.x, enemy.y, box, box);
 }
 
 document.addEventListener("keydown", update);
+
+window.addEventListener("keydown", function (p) {
+    var key = p.keyCode;
+    if (key === 80)
+    {
+        togglePause();
+    }
+    });
+
+window.addEventListener('keydown', function (s) {
+        var key = s.keyCode;
+        if ((key === 83) && (playing == false))
+        {
+            start(document.getElementById("start"));
+        }
+        });
+
+window.addEventListener('keydown', function (r) {
+            var key = r.keyCode;
+            if (key === 82)
+            {
+                restart();
+            }
+            });
 
 function update(event) {
 
@@ -69,6 +95,8 @@ function update(event) {
 
 function iniciarJogo() {
     
+    if (!paused) {
+
     for (let i = 1; i < snake.length; i++) {
         if(snake[0].x == snake[i].x && snake[0].y == snake[i].y) {
             clearInterval(jogo);
@@ -149,23 +177,13 @@ function iniciarJogo() {
         y: snakeY
     }
     snake.unshift(newHead);
-
+    
+    }
 }
 
 criarBG();
 
 var jogo = 0;
-
-function pause(element) {
-    element.disabled = false;
-
-    if (element.innerHTML == "pause") {
-        element.innerHTML = "unpause"; 
-    } else {
-        element.innerHTML = "pause"
-    }
-}
-
 
 function start(element) {
     element.disabled = true;
@@ -173,25 +191,79 @@ function start(element) {
     element.innerHTML = "playing";
     drawFood();
     jogo = setInterval(iniciarJogo, 100);
+    playing = true;
 }    
 
 var speed = 0;
 
+function slower() {
+    
+    if (playing == true) {
+
+    clearInterval(jogo);
+    speed = 0;
+    document.getElementById("faster").disabled = false;
+    jogo = setInterval(iniciarJogo, 100);
+
+    }
+
+}
+
 function faster(element) {
+    
+    if (playing == true) {
+
     speed++;
 
-    if(speed <= 5) {
-        element.innerHTML = ("speed: " + speed + "x");
-        drawFood();
-        let jogo = setInterval(iniciarJogo, 100);
+    if (speed <= 4) {
+        jogo = setInterval(iniciarJogo, 100);
+
     } else {
-        element.innerHTML = ("way too fast");
         element.disabled = true;
         element.style.opacity='0.25';
+        document.getElementById("slower").disabled = false;
+    }
+
     }
 }
 
-function reload() {
-    window.location.reload();
+function restart() {
+
+    if (playing == true) {
+
+     clearInterval(jogo);
+     speed = 0;
+     criarBG();
+     snake.length = 1;
+     score = 0;
+     document.getElementById("score").innerHTML = ("score:" + '<span class="pnts">' + score + '</span>');
+     hp = 3;
+     document.getElementById("hp").innerHTML = ("HP: " + heart + heart + heart);
+     food.x = Math.floor(Math.random() * 13 + 1) * box,
+     food.y = Math.floor(Math.random() * 13 + 1) * box,
+     enemy.x = Math.floor(Math.random() * 13 + 1) * box,
+     enemy.y = Math.floor(Math.random() * 13 + 1) * box
+     jogo = setInterval(iniciarJogo, 100);
+     document.getElementById("pause").innerHTML = ("pause (p)");
+     paused = false;
+     document.getElementById("start").innerHTML = ("playing");
+    }
+
 }
 
+
+function togglePause()
+{
+    if ((playing == true) && (!paused))
+    {
+        paused = true;
+        document.getElementById("pause").innerHTML = ("unpause (p)");
+        document.getElementById("start").innerHTML = ("paused");
+    } else if (paused)
+    {
+       paused= false;
+       document.getElementById("pause").innerHTML = ("pause (p)");
+       document.getElementById("start").innerHTML = ("playing");
+    }
+
+}

@@ -17,10 +17,12 @@
     </div>
     <canvas id="campo" width="392" height="392"></canvas>
     <div class="butoes">
-        <button type="button" role="button" class="botao" onclick="start(this)">start</button>
-        <button type="button" role="button" class="botao" onclick="pause(this)">pause</button>
-        <button type="button" role="button" class="botao" id= "faster" onclick="faster(this)">faster</button>
-        <button type="button" role="button" class="botao" onclick="reload()">reload</button>
+        <button type="button" role="button" class="botao" id="start" onclick="start(this)">start (s)</button>
+        <button type="button" role="button" class="botao" id="pause" onclick="togglePause()">pause (p)</button>
+<!--    <button type="button" role="button" class="botao" id= "slower" onclick="slower()"><b>-</b></button>
+        <button type="button" role="button" class="botao" id= "faster" onclick="faster(this)"><b>+</b></button>
+-->
+        <button type="button" role="button" class="botao" onclick="restart()">restart (r)</button>
     </div>
     <footer>
         <div class="desenvolvido">
