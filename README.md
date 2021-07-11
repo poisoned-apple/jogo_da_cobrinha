@@ -14,7 +14,7 @@
 
 
 
-- Frutas valem um (1) ponto de ouro :moneybag:, e aumentam o comprimento de **Snako, a serpente** :snake:;
+- Frutas :cherries: valem um (1) ponto de ouro :moneybag:, e aumentam o comprimento de **Snako, a serpente** :snake:;
 - Inimigos :black_flag: causam dano de uma (1) vida :heart:, e também diminuem o comprimento de **Snako, a serpente** :snake:;
 - Vida extras :purple_heart: aumentam os Pontos de Saúde (Health Points - HP) em um (1) coração vermelho :heart: .
 - Vida extras :purple_heart: também pontuam um (1) ponto de ouro :moneybag: a mais.
